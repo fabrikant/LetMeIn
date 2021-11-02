@@ -64,7 +64,6 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 	function onSelect(item as MenuItem){
 		
 		var key as String = itemQR.getLabel();
-		System.println(key);
 		if (item.getId() == :show){
 			currentKey = key;
 			menuQR.close();
@@ -87,8 +86,7 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 			if (currentKey.equals(key)){
 				currentKey = "";
 			}
-						
-			menuQR.deleteItem(menuQR.findItemById(item.getId())); 
+			menuQR.deleteItem(menuQR.findItemById(itemQR.getId())); 
 		}
 		WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
 		

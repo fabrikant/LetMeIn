@@ -10,8 +10,6 @@ class LetMeInViewDelegate extends WatchUi.InputDelegate {
 		}else{
 			return false;
 		}    
-//        System.println(keyEvent.getKey());         // e.g. KEY_MENU = 7
-//        return true;
     }
 
     function onTap(clickEvent) {
