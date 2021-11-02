@@ -1,0 +1,6 @@
+<properties>
+
+	<property id="NEW_LABEL" type="string"></property>
+	<property id="NEW_CODE" type="string"></property>
+
+</properties>

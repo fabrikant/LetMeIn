@@ -1,0 +1,9 @@
+<strings>
+    <string id="AppName">Let me in</string>
+    <string id="NEW_LABEL">New label</string>
+    <string id="NEW_CODE">New code</string>
+    
+    <string id="DEL">Remove QR code</string>
+    <string id="SHOW">Show QR code</string>
+	<string id="SET_DEFAULT">Set default</string>    
+</strings>

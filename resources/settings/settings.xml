@@ -1,0 +1,12 @@
+<settings>
+	
+	<setting propertyKey="@Properties.NEW_LABEL"
+		title="@Strings.NEW_LABEL" >
+		<settingConfig type="alphaNumeric" />
+	</setting>
+	<setting propertyKey="@Properties.NEW_CODE"
+		title="@Strings.NEW_CODE" >
+		<settingConfig type="alphaNumeric" />
+	</setting>
+
+</settings>
