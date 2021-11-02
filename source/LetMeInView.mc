@@ -33,6 +33,9 @@ class LetMeInView extends WatchUi.View {
         
 		var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
 		if (cache == null){
+			var x as Number = (dc.getWidth()/2).toNumber();
+			var y as Number = (dc.getHeight()/2).toNumber();
+        	dc.drawText(x, y, Graphics.FONT_MEDIUM, Application.loadResource(Rez.Strings.NO_DATA), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 			return;
 		}
         
@@ -62,6 +65,7 @@ class LetMeInView extends WatchUi.View {
 			var y as Number = ((dc.getHeight() - bitmapSize)/2).toNumber();
 			dc.drawBitmap(x, y, bitmap);
 			
+			dc.drawRectangle(x, y, bitmapSize, bitmapSize);
 			if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND){
 				var font as Number = Graphics.FONT_SYSTEM_TINY;
 				dc.drawText(
@@ -98,7 +102,7 @@ class LetMeInView extends WatchUi.View {
     	var bitmapSize as Number = getBitmapSize();
     	 
 		var strUrl as String = "https://chart.googleapis.com/chart?cht=qr&chld=M";
-		strUrl += "&chs=" + bitmapSize +"x"+ bitmapSize;
+		strUrl += "&chs=" + bitmapSize*2 +"x"+ bitmapSize*2;
 		strUrl += "&chl=" + Communications.encodeURL(qrStr);
 		Communications.makeImageRequest(
 			strUrl,
