@@ -36,9 +36,21 @@ class LetMeInView extends WatchUi.View {
 			return;
 		}
         
-        var keys as Array<String> = cache.keys();
-        if (keys.size() > 0){
-			var label as String = keys[0];
+        var label as String = currentKey;
+        if (label == null || label.equals("")){
+        	label = Application.Storage.getValue(DEFAULT_QR_KEY);
+        }
+        if (label == null || label.equals("")){
+	        var keys as Array<String> = cache.keys();
+	        if (keys.size() > 0){
+	        	label = keys[0];
+	        }
+        } 
+        if (label == null || label.equals("")){
+			var x as Number = (dc.getWidth()/2).toNumber();
+			var y as Number = (dc.getHeight()/2).toNumber();
+        	dc.drawText(x, y, Graphics.FONT_MEDIUM, Application.loadResource(Rez.Strings.NO_DATA), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+		}else{        
 			var bitmapSize as Number = getBitmapSize();
 			var bitmap as Graphics.BufferedBitmap = new Graphics.BufferedBitmap({
 				:width => bitmapSize, 
@@ -46,13 +58,21 @@ class LetMeInView extends WatchUi.View {
 				:palete => [Graphics.COLOR_BLACK, Graphics.COLOR_WHITE],
 				:bitmapResource => Application.Storage.getValue(label)
 			});
+			var x as Number = ((dc.getWidth() - bitmapSize)/2).toNumber();
+			var y as Number = ((dc.getHeight() - bitmapSize)/2).toNumber();
+			dc.drawBitmap(x, y, bitmap);
 			
-			var x as Number = ((dc.getWidth()-bitmapSize)/2).toNumber();
-			var y as Number = ((dc.getHeight()-bitmapSize)/2).toNumber();
-			dc.setColor(Graphics.COLOR_BLACK, Graphics.COLOR_BLACK);
-			dc.drawBitmap(x, y, bitmap);   
-			
-        }
+			if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND){
+				var font as Number = Graphics.FONT_SYSTEM_TINY;
+				dc.drawText(
+					dc.getWidth()/2, 
+					y - dc.getFontHeight(font), 
+					font, 
+					label, 
+					Graphics.TEXT_JUSTIFY_CENTER
+				);
+			}   
+		}	
     }
 
     // Called when this View is removed from the screen. Save the
@@ -103,7 +123,11 @@ class LetMeInView extends WatchUi.View {
 			}
 			
 			var label as String = Application.Properties.getValue("NEW_LABEL"); 
-			cache[label] = Application.Properties.getValue("NEW_CODE");
+			var source as String = Application.Properties.getValue("NEW_CODE");
+			if (label.equals("")){
+				label = source; 
+			}
+			cache[label] = source;
 			Application.Storage.setValue(label, data);
 			Application.Storage.setValue(CACHE_STORAGE_KEY, cache);
 			

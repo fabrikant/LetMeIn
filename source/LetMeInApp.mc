@@ -7,9 +7,12 @@ enum{
 	DEFAULT_QR_KEY
 }
 
+var currentKey as String;
+
 class LetMeInApp extends Application.AppBase {
 
     function initialize() {
+    	currentKey = "";
         AppBase.initialize();
     }
 
