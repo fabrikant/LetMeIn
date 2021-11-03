@@ -10,5 +10,6 @@
 	<string id="NO_DATA">No data</string>
 	
 	<string id="MENU_QR_TITLE">QR codes</string>
-	<string id="MENU_CONTEXT_TITLE">Select action</string>  
+	<string id="MENU_CONTEXT_TITLE">Select action</string> 
+	 
 </strings>
