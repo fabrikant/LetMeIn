@@ -87,8 +87,11 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 				currentKey = "";
 			}
 			menuQR.deleteItem(menuQR.findItemById(itemQR.getId())); 
+			
+			if (cache.keys().size() == 0){
+				menuQR.close();
+			}
 		}
 		WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-		
 	}
 }

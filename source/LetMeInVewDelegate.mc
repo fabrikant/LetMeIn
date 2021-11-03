@@ -1,11 +1,24 @@
 using Toybox.WatchUi;
 
 class LetMeInViewDelegate extends WatchUi.InputDelegate {
-
+	
+	function openMenu() as Void {
+		var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
+		if (cache == null){
+			return;
+		}
+        var keys as Array<String> = cache.keys();
+		if (keys.size() == 0){
+			return;
+		}
+		var menuQR as MenuQR = new MenuQR(); 
+		WatchUi.pushView(menuQR, new MenuQRDelegate(menuQR), WatchUi.SLIDE_IMMEDIATE);
+	
+	}
+	
     function onKey(keyEvent) {
     	if (keyEvent.getKey() == WatchUi.KEY_ENTER){
-    		var menuQR as MenuQR = new MenuQR(); 
-    		WatchUi.pushView(menuQR, new MenuQRDelegate(menuQR), WatchUi.SLIDE_IMMEDIATE);
+    		openMenu();
 			return true;
 		}else{
 			return false;
@@ -13,7 +26,7 @@ class LetMeInViewDelegate extends WatchUi.InputDelegate {
     }
 
     function onTap(clickEvent) {
-        System.println(clickEvent.getType());      // e.g. CLICK_TYPE_TAP = 0
+        openMenu();
         return true;
     }
 }
