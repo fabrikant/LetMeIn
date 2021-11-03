@@ -1,0 +1,15 @@
+<strings>
+    <string id="AppName">Let me in</string>
+    <string id="NEW_LABEL">Метка</string>
+    <string id="NEW_CODE">Строка QR кода</string>
+    
+    <string id="DEL">Удалить QR код</string>
+    <string id="SHOW">Показать QR код</string>
+	<string id="SET_DEFAULT">Установить по умолчанию</string>  
+	
+	<string id="NO_DATA">Нет данных</string>
+	
+	<string id="MENU_QR_TITLE">QR коды</string>
+	<string id="MENU_CONTEXT_TITLE">Выберите действие</string>
+	  
+</strings>
