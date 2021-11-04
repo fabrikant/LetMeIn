@@ -45,7 +45,7 @@ class MenuContext extends WatchUi.Menu2{
 		Menu2.initialize({:title => Application.loadResource(Rez.Strings.MENU_CONTEXT_TITLE)});
        	addItem(new MenuItem(Application.loadResource(Rez.Strings.SHOW), null, :show, null));
        	addItem(new MenuItem(Application.loadResource(Rez.Strings.SET_DEFAULT), null,:setDefault, null));
-       	addItem(new MenuItem(Application.loadResource(Rez.Strings.DEL), null, :delete, null));
+       	addItem(new MenuItem(Application.loadResource(Rez.Strings.DEL), null, :remove, null));
 	}
 }
 
@@ -66,11 +66,37 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 		var key as String = itemQR.getLabel();
 		if (item.getId() == :show){
 			currentKey = key;
+			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
 			menuQR.close();
 		}else if (item.getId() == :setDefault){
 			Application.Storage.setValue(DEFAULT_QR_KEY, key);
-		}else if (item.getId() == :delete){
-			
+			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+		}else if (item.getId() == :remove){
+			WatchUi.pushView(
+				new WatchUi.Confirmation(Application.loadResource(Rez.Strings.REMOVE_CONFIRMATION)),
+				new RemoveConfirmationDelegate(menuQR, itemQR),
+				WatchUi.SLIDE_IMMEDIATE);
+		}
+		
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+class RemoveConfirmationDelegate extends WatchUi.ConfirmationDelegate {
+ 	
+ 	var menuQR as MenuQR;
+	var itemQR as MenuItem;
+    
+    function initialize(menuQR, itemQR) {
+	 	self.menuQR = menuQR;
+	 	self.itemQR = itemQR;        
+	 	ConfirmationDelegate.initialize();
+    }
+
+    function onResponse(response) {
+        
+        if (response == WatchUi.CONFIRM_YES) {
+			var key as String = itemQR.getLabel();
 			Application.Storage.deleteValue(key);
 			var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
 			cache.remove(key);
@@ -91,7 +117,7 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 			if (cache.keys().size() == 0){
 				menuQR.close();
 			}
-		}
-		WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
-	}
+			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
+        }
+    }
 }

@@ -62,8 +62,10 @@ class LetMeInApp extends Application.AppBase {
 			strUrl,
 			{},
 			{
+				:palette => [ Graphics.COLOR_BLACK, Graphics.COLOR_WHITE],
 				:maxWidth => bitmapSize,
-				:maxHeight=> bitmapSize
+				:maxHeight => bitmapSize,
+				:dithering => Communications.IMAGE_DITHERING_NONE
 			},
 			self.method(:onReceiveImage)
 		);

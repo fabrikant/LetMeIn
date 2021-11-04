@@ -11,5 +11,5 @@
 	
 	<string id="MENU_QR_TITLE">QR коды</string>
 	<string id="MENU_CONTEXT_TITLE">Выберите действие</string>
-	  
+	<string id="REMOVE_CONFIRMATION">Удалить QR код?</string>  
 </strings>

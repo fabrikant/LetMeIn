@@ -1,1 +1,10 @@
-Add QR code from phone, remove from watch
+QR codes widget.
+Internet is only required when adding new code.
+To add QR code:
+1. Open the widget settings in Garmin Connect
+2. Set the new unique label and source string for the QR code. Save the settings.
+3. Launch the widget.
+4. The code will be added, and the fields in the settings will be cleared.
+5. To add a new code, repeat steps 1-4
+
+Use the widget menu in the watch to delete and manage codes

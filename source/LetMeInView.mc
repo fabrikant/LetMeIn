@@ -44,15 +44,10 @@ class LetMeInView extends WatchUi.View {
         	dc.drawText(x, y, Graphics.FONT_MEDIUM, Application.loadResource(Rez.Strings.NO_DATA), Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 		}else{ 
 			var bitmapSize as Number = getApp().getBitmapSize();
-			var bitmap as Graphics.BufferedBitmap = new Graphics.BufferedBitmap({
-				:width => bitmapSize, 
-				:height => bitmapSize, 
-				:palete => [Graphics.COLOR_BLACK, Graphics.COLOR_WHITE],
-				:bitmapResource => Application.Storage.getValue(label)
-			});
 			var x as Number = ((dc.getWidth() - bitmapSize)/2).toNumber();
 			var y as Number = ((dc.getHeight() - bitmapSize)/2).toNumber();
-			dc.drawBitmap(x, y, bitmap);
+			//dc.drawBitmap(x, y, bitmap);
+			dc.drawBitmap(x, y, Application.Storage.getValue(label));
 			
 			//dc.drawRectangle(x, y, bitmapSize, bitmapSize);
 			if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND){
