@@ -54,9 +54,8 @@ class LetMeInApp extends Application.AppBase {
     	}
     	
     	var bitmapSize as Number = getBitmapSize();
-    	var reqSize = (bitmapSize*2).toNumber(); 
-		var strUrl as String = "https://chart.googleapis.com/chart?cht=qr&chld=M";
-		strUrl += "&chs=" + reqSize +"x"+ reqSize;
+		var strUrl as String = "https://chart.googleapis.com/chart?cht=qr&chld=M|1";
+		strUrl += "&chs=" + bitmapSize +"x"+ bitmapSize;
 		strUrl += "&chl=" + Communications.encodeURL(qrStr);
 		Communications.makeImageRequest(
 			strUrl,
