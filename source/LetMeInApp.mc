@@ -7,7 +7,7 @@ enum{
 	DEFAULT_QR_KEY = "DEF_KEY"
 }
 
-var currentKey as String;
+var currentKey;
 
 class LetMeInApp extends Application.AppBase {
 
@@ -17,26 +17,26 @@ class LetMeInApp extends Application.AppBase {
     }
 
     // onStart() is called on application start up
-    function onStart(state as Dictionary?) as Void {
+    function onStart(state) {
     	downloadQR();
     }
 
     // onStop() is called when your application is exiting
-    function onStop(state as Dictionary?) as Void {
+    function onStop(state){
     }
 
-	function onSettingsChanged() as Void {
+	function onSettingsChanged(){
     	downloadQR();
 	}
 	
     // Return the initial view of your application here
-    function getInitialView() as Array<Views or InputDelegates>? {
-        return [ new LetMeInView(), new LetMeInViewDelegate() ] as Array<Views or InputDelegates>;
+    function getInitialView(){
+        return [ new LetMeInView(), new LetMeInViewDelegate() ];
     }
 
-    function getBitmapSize() as Number{
-    	var bitmapSize as Number;
-    	var screenSize as Number = Tools.min(System.getDeviceSettings().screenHeight, System.getDeviceSettings().screenWidth);
+    function getBitmapSize(){
+    	var bitmapSize;
+    	var screenSize = Tools.min(System.getDeviceSettings().screenHeight, System.getDeviceSettings().screenWidth);
     	
     	if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND){
     		bitmapSize = Toybox.Math.sqrt(screenSize*screenSize/2).toNumber();
@@ -46,15 +46,15 @@ class LetMeInApp extends Application.AppBase {
     	return bitmapSize; 
     }
 
-    function downloadQR() as Void{
+    function downloadQR(){
  
-     	var qrStr as String = Application.Properties.getValue("NEW_CODE");
+     	var qrStr = Application.Properties.getValue("NEW_CODE");
     	if (qrStr.equals("")){
     		return;
     	}
     	
-    	var bitmapSize as Number = getBitmapSize();
-		var strUrl as String = "https://chart.googleapis.com/chart?cht=qr&chld=M|1";
+    	var bitmapSize = getBitmapSize();
+		var strUrl = "https://chart.googleapis.com/chart?cht=qr&chld=M|1";
 		strUrl += "&chs=" + bitmapSize +"x"+ bitmapSize;
 		strUrl += "&chl=" + Communications.encodeURL(qrStr);
 		Communications.makeImageRequest(
@@ -70,15 +70,15 @@ class LetMeInApp extends Application.AppBase {
 		);
     }
 	
-	function onReceiveImage(code as Number, data as BitmapResource) as Void{
+	function onReceiveImage(code, data){
 		if (code == 200){
-			var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
+			var cache = Application.Storage.getValue(CACHE_STORAGE_KEY);
 			if (cache == null){
 				cache = {};
 			}
 			
-			var label as String = Application.Properties.getValue("NEW_LABEL"); 
-			var source as String = Application.Properties.getValue("NEW_CODE");
+			var label = Application.Properties.getValue("NEW_LABEL"); 
+			var source = Application.Properties.getValue("NEW_CODE");
 			if (label.equals("")){
 				label = source; 
 			}
@@ -94,6 +94,6 @@ class LetMeInApp extends Application.AppBase {
 	}
 }
 
-function getApp() as LetMeInApp {
-    return Application.getApp() as LetMeInApp;
+function getApp(){
+    return Application.getApp();
 }

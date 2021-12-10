@@ -2,16 +2,16 @@ using Toybox.WatchUi;
 
 class LetMeInViewDelegate extends WatchUi.InputDelegate {
 	
-	function openMenu() as Void {
-		var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
+	function openMenu(){
+		var cache = Application.Storage.getValue(CACHE_STORAGE_KEY);
 		if (cache == null){
 			return;
 		}
-        var keys as Array<String> = cache.keys();
+        var keys = cache.keys();
 		if (keys.size() == 0){
 			return;
 		}
-		var menuQR as MenuQR = new MenuQR(); 
+		var menuQR = new MenuQR(); 
 		WatchUi.pushView(menuQR, new MenuQRDelegate(menuQR), WatchUi.SLIDE_IMMEDIATE);
 	
 	}

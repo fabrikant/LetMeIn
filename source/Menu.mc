@@ -8,17 +8,17 @@ class MenuQR extends WatchUi.Menu2 {
 	function initialize(){
 		Menu2.initialize({:title => Application.loadResource(Rez.Strings.MENU_QR_TITLE)});
 		
-		var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
+		var cache = Application.Storage.getValue(CACHE_STORAGE_KEY);
 		if (cache == null){
 			return;
 		}
-        var keys as Array<String> = cache.keys();
-        for (var i as Number = 0; i <cache.size(); i++){
+        var keys = cache.keys();
+        for (var i = 0; i <cache.size(); i++){
         	addItem(new MenuItem(keys[i], cache[keys[i]], keys[i], null));
         }
 	}
 	
-	function close() as Void{
+	function close(){
 		WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
 	}
 }
@@ -26,14 +26,14 @@ class MenuQR extends WatchUi.Menu2 {
 ///////////////////////////////////////////////////////////////////////////////
 class MenuQRDelegate extends WatchUi.Menu2InputDelegate{
 	
-	var menuQR as MenuQR;  
+	var menuQR;  
 	
 	function initialize(menuQR) {
 	 	self.menuQR = menuQR;
         Menu2InputDelegate.initialize();
     }
 	
-	function onSelect(item as MenuItem){
+	function onSelect(item){
 		WatchUi.pushView(new MenuContext(), new MenuContextDelegate(menuQR, item), WatchUi.SLIDE_IMMEDIATE);
 	}
 }
@@ -52,8 +52,8 @@ class MenuContext extends WatchUi.Menu2{
 ///////////////////////////////////////////////////////////////////////////////
 class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 	
-	var menuQR as MenuQR;
-	var itemQR as MenuItem;
+	var menuQR;
+	var itemQR;
 	
 	function initialize(menuQR, itemQR) {
 	 	self.menuQR = menuQR;
@@ -61,9 +61,9 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
         Menu2InputDelegate.initialize();
     }
 	
-	function onSelect(item as MenuItem){
+	function onSelect(item){
 		
-		var key as String = itemQR.getLabel();
+		var key = itemQR.getLabel();
 		if (item.getId() == :show){
 			currentKey = key;
 			WatchUi.popView(WatchUi.SLIDE_IMMEDIATE);
@@ -84,8 +84,8 @@ class MenuContextDelegate extends WatchUi.Menu2InputDelegate{
 ///////////////////////////////////////////////////////////////////////////////
 class RemoveConfirmationDelegate extends WatchUi.ConfirmationDelegate {
  	
- 	var menuQR as MenuQR;
-	var itemQR as MenuItem;
+ 	var menuQR;
+	var itemQR;
     
     function initialize(menuQR, itemQR) {
 	 	self.menuQR = menuQR;
@@ -96,13 +96,13 @@ class RemoveConfirmationDelegate extends WatchUi.ConfirmationDelegate {
     function onResponse(response) {
         
         if (response == WatchUi.CONFIRM_YES) {
-			var key as String = itemQR.getLabel();
+			var key = itemQR.getLabel();
 			Application.Storage.deleteValue(key);
-			var cache as Dictonary = Application.Storage.getValue(CACHE_STORAGE_KEY);
+			var cache = Application.Storage.getValue(CACHE_STORAGE_KEY);
 			cache.remove(key);
 			Application.Storage.setValue(CACHE_STORAGE_KEY, cache);
 			
-			var defKey as String = Application.Storage.getValue(DEFAULT_QR_KEY);
+			var defKey = Application.Storage.getValue(DEFAULT_QR_KEY);
 			if (defKey != null){
 				if (defKey.equals(key)){
 					Application.Storage.deleteValue(DEFAULT_QR_KEY);

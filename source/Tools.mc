@@ -1,6 +1,6 @@
 module Tools {
 
-	function min(v1 as Number, v2 as Number){
+	function min(v1, v2){
 		if(v1 < v2){
 			return v1;
 		}else{
